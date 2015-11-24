@@ -43,8 +43,6 @@ if !DEBUG_MODE {
     multi_ParseParameters()
 }
 
-
-MsgBox, %name%
 multi_CloseIfRunning()
 
 Loop, %MT_MAX%
