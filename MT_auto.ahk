@@ -45,8 +45,6 @@ if !DEBUG_MODE {
     config_iniRead()
 }
 
-
-MsgBox, %name%
 multi_CloseIfRunning()
 
 Loop, %MT_MAX%
