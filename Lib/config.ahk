@@ -11,7 +11,6 @@ config_iniRead() {
     Section := SCENARIONAME
     logger_Log("Section:" . Section)
 
-    ; IniRead, mtCount, MT_CONFIG_PATH, Section, MT_COUNT
     IniRead, mtCount, %MT_CONFIG_PATH%, %Section%, MT_COUNT
     logger_Log("MT Count:" . mtCount)
 
