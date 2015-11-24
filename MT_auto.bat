@@ -1,0 +1,1 @@
+MT_auto.exe "D:\userdata\lagadia\My Documents\!Tasks\MT Automation\1CallMAX6Cell_CP_1.snr" "D:\userdata\lagadia\My Documents\!Tasks\MT Automation\1CallMAX6Cell_OAM_1.snr"
