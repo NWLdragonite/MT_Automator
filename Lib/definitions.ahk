@@ -11,6 +11,9 @@ SNR_Array:=[]
 WS_DISABLED:=0x8000000
 MT_AUTO_LOG_PATH:=A_ScriptDir . "\" . "MT_AUTO_LOG.TXT"
 MT_RESULT_LOG_PATH:=A_ScriptDir . "\" . "EXECUTION_LOG.TXT"
+; MT_CONFIG_PATH:=A_ScriptDir . "\" . "Auto.ini"
+MT_CONFIG_PATH:="Auto.ini"
+MT_SELECT_PATH:=MT_PATH . "exe\" . "Select.ini"
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
  ; #Warn  ; Enable warnings to assist with detecting common errors.

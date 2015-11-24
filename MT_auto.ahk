@@ -4,6 +4,7 @@
 #Include <loadsnr>
 #Include <errorhandler>
 #Include <MWErrorHandler>
+#Include <config>
 
 ; SET TO 1 FOR SUBLIME RUN COMPATIBILITY
 ; SET TO 0 AND COMPILE FOR PARAMETERIZED INPUT VIA COMMANDLINE PARAMETERS
@@ -16,7 +17,7 @@ SetControlDelay -1 ; Set Control sending delay to as fast as possible
 MaintenanceScreen() {
     errorhandler_WinWait("ahk_class TFM_MT_SELECT")
     errorhandler_BtnWait("TButton2", "ahk_class TFM_MT_SELECT", "All Start", "ahk_class TFM_ALLSTART")
-    errorhandler_WinWaitClose("ahk_class TFM_ALLSTART",20)
+    errorhandler_WinWaitClose("ahk_class TFM_ALLSTART", 20)
 }
 
 LoginScreen() {
@@ -27,8 +28,8 @@ LoginScreen() {
 }
 
 ExecScreen() {
-    errorhandler_WinWait("ahk_class TFM_RunMessage",20)
-    errorhandler_WinWaitClose("ahk_class TFM_RunMessage",20)
+    errorhandler_WinWait("ahk_class TFM_RunMessage", 20)
+    errorhandler_WinWaitClose("ahk_class TFM_RunMessage", 20)
     BlockInput, On
     ControlClick, TButton7, ahk_class TFM_MSEDIT
     BlockInput, Off
@@ -40,7 +41,8 @@ ExecScreen() {
 
 if !DEBUG_MODE {
 
-    multi_ParseParameters()
+    ; multi_ParseParameters()
+    config_iniRead()
 }
 
 
