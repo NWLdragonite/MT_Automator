@@ -1,17 +1,26 @@
 #Include <definitions>
 #Include <logger>
-#Include <config>
 
 
 config_iniRead() {
     global 0
-    global 1
     global MT_CONFIG_PATH
     global MT_SELECT_PATH
     global SNR_Array
 
-    Section := %0%
-    iniSection := %1%
+    returnVal := False
+
+    if 0 > 1
+    {
+        logger_Log("Too many parameters, use only 1")
+        ExitApp
+    }
+
+    Loop %0%
+    {
+        Section := global %A_Index%
+        Break
+    }
 
     logger_Log("Section:" . Section)
 
