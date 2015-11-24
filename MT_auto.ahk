@@ -38,14 +38,14 @@ ExecScreen() {
 ;===============================
 ; Autoexec start
 ;===============================
+;Close first if running before changing the configuration file
+multi_CloseIfRunning()
 
 if !DEBUG_MODE {
-
-    ; multi_ParseParameters()
+    multi_ParseParameters()
     config_iniRead()
 }
 
-multi_CloseIfRunning()
 
 Loop, %MT_MAX%
 {

@@ -3,25 +3,12 @@
 
 
 config_iniRead() {
-    global 0
     global MT_CONFIG_PATH
     global MT_SELECT_PATH
     global SNR_Array
+    global SCENARIONAME
 
-    returnVal := False
-
-    if 0 > 1
-    {
-        logger_Log("Too many parameters, use only 1")
-        ExitApp
-    }
-
-    Loop %0%
-    {
-        Section := global %A_Index%
-        Break
-    }
-
+    Section := SCENARIONAME
     logger_Log("Section:" . Section)
 
     ; IniRead, mtCount, MT_CONFIG_PATH, Section, MT_COUNT
@@ -47,7 +34,6 @@ config_iniRead() {
     Loop, %mtCount%
     {
         IniRead, outputVar, %MT_CONFIG_PATH%, %Section%, Scenario%A_Index%
-        logger_Log("outputVar:" . outputVar)
         SNR_Array[%A_Index%] := outputVar
         logger_Log("SNR:" . SNR_Array[%A_Index%])
 
@@ -80,6 +66,8 @@ resetMTSettings(mode) {
 
     Filename := MT_SELECT_PATH
 
+    logger_Log("===Reset Settings===")
+
     mode := mode ? "3G_CARD_ID" : "LTE_CARD_ID"
     Loop, %MT_MAX%
     {
@@ -92,6 +80,7 @@ resetMTSettings(mode) {
         IniWrite, 0, %Filename%, %MTSection%, CHECKED
         IniWrite, 0, %Filename%, %cardSection%, ENDIAN
     }
+    logger_Log("===Reset Complete===")
 }
 
 padNumber(num) {
