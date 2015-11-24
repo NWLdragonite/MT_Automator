@@ -29,5 +29,5 @@ PrintToFile(logmsg) {
 logger_Initialize() {
     global MT_AUTO_LOG_PATH
     FileDelete, %MT_AUTO_LOG_PATH%
-    FileAppend, ====MT_LOG_START====, %MT_AUTO_LOG_PATH%
+    logger_Log("====MT_LOG_START====")
 }
