@@ -1,9 +1,10 @@
-﻿#Include <definitions>
+#Include <definitions>
 #Include <multi>
 #Include <exec>
 #Include <loadsnr>
 #Include <errorhandler>
 #Include <MWErrorHandler>
+#Include <config>
 
 ; SET TO 1 FOR SUBLIME RUN COMPATIBILITY
 ; SET TO 0 AND COMPILE FOR PARAMETERIZED INPUT VIA COMMANDLINE PARAMETERS
@@ -16,7 +17,7 @@ SetControlDelay -1 ; Set Control sending delay to as fast as possible
 MaintenanceScreen() {
     errorhandler_WinWait("ahk_class TFM_MT_SELECT")
     errorhandler_BtnWait("TButton2", "ahk_class TFM_MT_SELECT", "All Start", "ahk_class TFM_ALLSTART")
-    errorhandler_WinWaitClose("ahk_class TFM_ALLSTART",20)
+    errorhandler_WinWaitClose("ahk_class TFM_ALLSTART", 20)
 }
 
 LoginScreen() {
@@ -27,8 +28,8 @@ LoginScreen() {
 }
 
 ExecScreen() {
-    errorhandler_WinWait("ahk_class TFM_RunMessage",20)
-    errorhandler_WinWaitClose("ahk_class TFM_RunMessage",20)
+    errorhandler_WinWait("ahk_class TFM_RunMessage", 20)
+    errorhandler_WinWaitClose("ahk_class TFM_RunMessage", 20)
     BlockInput, On
     ControlClick, TButton7, ahk_class TFM_MSEDIT
     BlockInput, Off
@@ -40,19 +41,11 @@ ExecScreen() {
 
 if !DEBUG_MODE {
 
-    multi_ParseParameters()
+    ; multi_ParseParameters()
+    config_iniRead()
 }
 
-
-MsgBox, %name%
 multi_CloseIfRunning()
-
-Loop, %MT_MAX%
-{
-    global MT_PATH
-    path := MT_PATH . "MT" . A_Index . "\USER\*.mlog"
-    FileDelete, %path%
-}
 
 logger_Initialize()
 
@@ -101,10 +94,7 @@ Loop, %MT_MAX%
     {
         loadsnr_LoadFile(SNR_Array[%A_Index%])
     }
-
-    snl_editHandle := multi_GetMacroExecHandle(A_Index)
-    MT_Array[%A_Index%,%MACRO_EXEC%] := snl_editHandle
-    exec_ScenarioExecution("ahk_id " . snl_editHandle)
+    exec_ScenarioExecution()
 
     ; SaveMWError("TRichEdit1","ahk_class TFM_MSEDIT", MT_RESULT_LOG_PATH)
 
@@ -114,9 +104,10 @@ logger_log("====PREPARING FOR EXECUTION====")
 
 Loop, %MT_MAX%
 {
-   
+    handle := multi_GetMacroExecHandle(A_Index)
+    MT_Array[%A_Index%,%MACRO_EXEC%] := handle ;works
+
     ;check if there is a saved handle
-    handle := MT_Array[%A_Index%,%MACRO_EXEC%]
     if handle = 0
     {
         Continue
