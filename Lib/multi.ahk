@@ -5,10 +5,6 @@ multi_ParseParameters() {
     {
         param := global %A_Index%
         SNR_Array[%A_Index%] := param
-        ; MsgBox, 4,, Parameter number %A_Index% is %param%.  Continue?
-        ; IfMsgBox, No
-        ; break
-        ; OSD(param)
     }
 }
 
