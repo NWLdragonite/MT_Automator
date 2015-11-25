@@ -7,7 +7,8 @@
 
 ; SET TO 1 FOR SUBLIME RUN COMPATIBILITY
 ; SET TO 0 AND COMPILE FOR PARAMETERIZED INPUT VIA COMMANDLINE PARAMETERS
-DEBUG_MODE:=0
+
+DEBUG_MODE:=1
 
 #SingleInstance force
 SetTitleMatchMode, RegEx
@@ -114,7 +115,8 @@ Loop, %MT_MAX%
 {
    
     ;check if there is a saved handle
-    handle := MT_Array[%A_Index%,%MACRO_EXEC%]
+    handle := multi_GetMacroExecHandle(A_Index)
+
     if handle = 0
     {
         Continue
@@ -122,10 +124,10 @@ Loop, %MT_MAX%
 
     if !multi_IsHandleValid(handle) 
     {
-        multi_OSD("Handle is invalid")
+        ; multi_OSD("Handle is invalid")
         Continue
     }
-
+    logger_log("process ID "handle)
     exec_ScenarioExecute("ahk_id " . handle)
     SaveMWError("TRichEdit1","ahk_class TFM_MSEDIT", MT_RESULT_LOG_PATH)
 }
