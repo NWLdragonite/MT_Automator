@@ -63,7 +63,6 @@ Loop, %MT_MAX%
     ;check if there is a saved handle
     if handle = 0
     {
-
         Continue
     }
 
@@ -128,6 +127,7 @@ Loop, %MT_MAX%
 MT_Array:=""
 SNR_Array:=""
 
+multi_CloseIfRunning()
 logger_Log("====MT_LOG_END====")
 
 ;===============================
