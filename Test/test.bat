@@ -1,1 +1,0 @@
-stressTest_ExecuteScenario.exe
