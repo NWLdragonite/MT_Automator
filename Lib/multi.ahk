@@ -1,14 +1,23 @@
 multi_ParseParameters() {
     global 0
-    global SNR_Array
-    Loop, %0% ;
+    ; global SNR_Array
+    ; Loop, %0% ;
+    ; {
+    ;     param := global %A_Index%
+    ;     SNR_Array[%A_Index%] := param
+    ; }
+
+    if 0 > 1
     {
-        param := global %A_Index%
-        SNR_Array[%A_Index%] := param
-        ; MsgBox, 4,, Parameter number %A_Index% is %param%.  Continue?
-        ; IfMsgBox, No
-        ; break
-        ; OSD(param)
+        logger_Log("Too many parameters, use only 1")
+        ExitApp
+    }
+
+    Loop %0%
+    {
+        global SCENARIONAME 
+        SCENARIONAME := global %A_Index%
+        Break
     }
 }
 
