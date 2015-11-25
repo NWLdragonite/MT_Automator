@@ -1,1 +1,0 @@
-MT_auto.exe cellsetup
