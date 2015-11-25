@@ -1,5 +1,5 @@
-#Include ..\Lib\errorhandler.ahk
-#Include ..\Lib\logger.ahk
+#Include <logger>
+#Include <errorhandler>
 
 global WAIT_DEFAULT_TIMEOUT := 2
 global EXECUTION_TAB := 2
@@ -38,9 +38,9 @@ exec_ScenarioExecution(mt_ProcessID) {
         {
 
             logger_log("Sending (Ctrl+tab) to change active page.")
-            ControlFocus, TPageControl1, %TEST% ahk_class TFM_MSEDIT %mt_ProcessID%
-            ControlSend,TPageControl1, {CtrlDown}{Tab}{CtrlUp}, ahk_class TFM_MSEDIT %mt_ProcessID%
-            ControlGet, OutputVar, Tab,, TPageControl1, ahk_class TFM_MSEDIT %mt_ProcessID%
+            ControlFocus, TPageControl1, %TEST% ahk_class TFM_MSEDIT
+            ControlSend,TPageControl1, {CtrlDown}{Tab}{CtrlUp}, ahk_class TFM_MSEDIT
+            ControlGet, OutputVar, Tab,, TPageControl1, ahk_class TFM_MSEDIT
 
             retryCount++
             sleep WAIT_DEFAULT_TIMEOUT
@@ -59,15 +59,13 @@ exec_ScenarioExecution(mt_ProcessID) {
     if (ret_code = SUCCESS)
     {
         logger_log("Auto Save logs is Enabled.")
-        ; Return SUCCESS
+        Return SUCCESS
     }
     Else
     {
         logger_log("Auto Save logs is Disabled.")
-        Return FAILED
     }
 
-    Return SUCCESS
     ; exec_ScenarioExecute(TEST)
 
         

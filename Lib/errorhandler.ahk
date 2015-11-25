@@ -1,4 +1,4 @@
-#Include ..\Lib\logger.ahk
+#Include <logger>
 
 global ERR_MAX      := 3
 
@@ -73,14 +73,7 @@ errorhandler_BtnClick(ControlName, ControlText, ExpectedText, windowClassName, w
         {
             ControlFocus, %ControlText% , %windowClassName% %windowProcessID%
             ControlClick, %ControlText% , %windowClassName% %windowProcessID%
-            if ErrorLevel = 0
-            {
-                ControlGetText, ButtonText, %ExpectedText% , %windowClassName% %windowProcessID%
-            }
-            Else
-            {
-                ControlGetText, ButtonText, %ControlText% , %windowClassName% %windowProcessID%  
-            }
+            ControlGetText, ButtonText, %ControlName% , %windowClassName% %windowProcessID%
 
             retryCount++
             sleep WAIT_DEFAULT_TIMEOUT
