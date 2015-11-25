@@ -24,7 +24,7 @@ loghandler_renameLogFiles() {
 		        continue
 
 		    oldfilename :=  A_LoopField
-		    newfilename := %SCENARIONAME% . "_" . A_LoopField ; SCENARIO NAME FROM INI FILE
+		    newfilename := SCENARIONAME . "_" . A_LoopField ; SCENARIO NAME FROM INI FILE
 		    oldpath := MT_PATH . "MT" . index . "\USER\" . oldfilename
 		    newpath := MT_PATH . "MT" . index . "\USER\" . newfilename
 		    FileMove, %oldpath%,  %newpath%
