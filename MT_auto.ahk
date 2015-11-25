@@ -46,14 +46,6 @@ if !DEBUG_MODE {
     config_iniRead()
 }
 
-
-Loop, %MT_MAX%
-{
-    global MT_PATH
-    path := MT_PATH . "MT" . A_Index . "\USER\*.mlog"
-    FileDelete, %path%
-}
-
 logger_Initialize()
 
 Run %MTSELECT%, %MTSELECTPATH%
@@ -137,3 +129,11 @@ MT_Array:=""
 SNR_Array:=""
 
 logger_Log("====MT_LOG_END====")
+
+;===============================
+; renaming of Log File start
+;===============================
+
+logger_Log("====START: Renaming of Log Files====")
+loghandler_renameLogFiles()
+logger_Log("====END: Renaming of Log Files====")
