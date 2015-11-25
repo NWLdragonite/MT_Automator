@@ -4,8 +4,6 @@
 #Include <multi>
 #Include <exec>
 #Include <errorhandler>
-; #Include ..\Lib\errorhandler.ahk
-; #Include ..\Lib\logger.ahk
 
 global MT_MAX
 global MT_Array
@@ -40,7 +38,8 @@ loop, %MT_MAX%
     	{
     		successCount++	
     	}
-    	Else{
+    	Else
+        {
     		failedCount++
     	}
     	EditScenarioTab("ahk_id " . snl_editHandle)
@@ -56,7 +55,7 @@ logger_log("--------DONE-----------")
 
 EditScenarioTab(mtProccessID){
 
-	ret_code := errorhandler_BtnClick("TButton20", "Auto Save off", "Auto Save on", "ahk_class TFM_MSEDIT", mtProccessID)
+	ret_code := errorhandler_BtnClick("Auto Save off", "Auto Save off", "Auto Save on", "ahk_class TFM_MSEDIT", mtProccessID)
 	ControlFocus, TPageControl1, %mtProccessID%
     ControlGet, OutputVar, Tab,, TPageControl1, %mtProccessID%
 	While !(OutputVar = 1)
