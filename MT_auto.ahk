@@ -7,10 +7,6 @@
 #Include <MWErrorHandler>
 #Include <config>
 
-; SET TO 1 FOR SUBLIME RUN COMPATIBILITY
-; SET TO 0 AND COMPILE FOR PARAMETERIZED INPUT VIA COMMANDLINE PARAMETERS
-DEBUG_MODE:=0
-
 #SingleInstance force
 SetTitleMatchMode, RegEx
 SetControlDelay -1 ; Set Control sending delay to as fast as possible
@@ -18,13 +14,8 @@ SetControlDelay -1 ; Set Control sending delay to as fast as possible
 ;===============================
 ; Autoexec start
 ;===============================
-;Close first if running before changing the configuration file
-multi_CloseIfRunning()
 
-if !DEBUG_MODE {
-    multi_ParseParameters()
-    config_iniRead()
-}
+screen_Startup()
 
 logger_Initialize()
 
@@ -64,14 +55,7 @@ Loop, %MT_MAX%
     }
     ControlClick, TBitBtn4, ahk_id %handle%
     screen_Exec()
-    if DEBUG_MODE 
-    {
-        loadsnr_LoadFile(SNRFILE)
-    }
-    Else
-    {
-        loadsnr_LoadFile(SNR_Array[%A_Index%])
-    }
+    loadsnr_LoadFile(SNR_Array[%A_Index%])
 
     snl_editHandle := multi_GetMacroExecHandle(A_Index)
     MT_Array[%A_Index%,%MACRO_EXEC%] := snl_editHandle

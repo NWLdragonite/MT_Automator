@@ -21,3 +21,12 @@ screen_Exec() {
     ControlClick, TButton7, ahk_class TFM_MSEDIT
     BlockInput, Off
 }
+
+
+screen_Startup() {
+    ;Close first if running before changing the configuration file
+    multi_CloseIfRunning()
+    multi_ParseParameters()
+    config_iniRead()
+    logger_Initialize()
+}
