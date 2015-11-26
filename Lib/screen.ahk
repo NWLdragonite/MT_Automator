@@ -30,3 +30,16 @@ screen_Startup() {
     config_iniRead()
     logger_Initialize()
 }
+
+screen_PushExecButton(handle) {
+    ;Check if Execution Button is disabled
+    ControlGet, OutputVar, Enabled, ,TBitBtn4, ahk_class TFM_MainMenu ahk_id %handle%
+    while (OutputVar != 1)
+    {
+        ControlGet, OutputVar, Enabled, ,TBitBtn4, ahk_class TFM_MainMenu ahk_id %handle%
+        Sleep, 10
+    }
+    BlockInput, On
+    ControlClick, TBitBtn4, ahk_id %handle%
+    BlockInput, Off
+}

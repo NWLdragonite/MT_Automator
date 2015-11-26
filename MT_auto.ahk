@@ -14,54 +14,28 @@ SetControlDelay -1 ; Set Control sending delay to as fast as possible
 ;===============================
 ; Autoexec start
 ;===============================
-
 screen_Startup()
-
-logger_Initialize()
-
 Run %MTSELECT%, %MTSELECTPATH%
-
 screen_Login()
-
 screen_Maintenance()
-
 logger_Log("AllStart Finished")
+
 Loop, %MT_MAX%
 {
-    handle := multi_GetMainMenuHandle(A_Index)
-    MT_Array[%A_Index%,%MAIN_MENU%] := handle ;works
 
-    ;check if there is a saved handle
+    handle := multi_MtStartupOk(A_Index)
     if handle = 0
     {
         Continue
     }
-
-    if !multi_IsHandleValid(handle) 
-    {
-        logger_Log("Handle is invalid: " . handle)
-        Continue
-    }
-
-    logger_Log("====Start Processing for MT#" . A_Index . "====")
-    logger_Log("Handle is valid: " . handle)
-
-    ;Check if Execution Button is disabled
-    ControlGet, OutputVar, Enabled, ,TBitBtn4, ahk_class TFM_MainMenu ahk_id %handle%
-    while (OutputVar != 1)
-    {
-        ControlGet, OutputVar, Enabled, ,TBitBtn4, ahk_class TFM_MainMenu ahk_id %handle%
-        Sleep, 10
-    }
-    ControlClick, TBitBtn4, ahk_id %handle%
+    screen_PushExecButton(handle)
     screen_Exec()
+
     loadsnr_LoadFile(SNR_Array[%A_Index%])
 
     snl_editHandle := multi_GetMacroExecHandle(A_Index)
     MT_Array[%A_Index%,%MACRO_EXEC%] := snl_editHandle
     exec_ScenarioExecution("ahk_id " . snl_editHandle)
-
-    ; SaveMWError("TRichEdit1","ahk_class TFM_MSEDIT", MT_RESULT_LOG_PATH)
 
 }
 

@@ -1,3 +1,5 @@
+#Include <screen>
+
 multi_ParseParameters() {
     global 0
 
@@ -38,11 +40,7 @@ multi_GetMainMenuHandle(index) {
 }
 
 multi_IsHandleValid(handle) {
-    ; Process, Exist, %handle%
-    ; Process, wait, ahk_id %handle%, 1
-    ; NewPID = %ErrorLevel%
-    ; msgbox % NewPID
-    ; return NewPID
+
     if WinExist("ahk_id" . handle)
     {
         return True
@@ -100,4 +98,28 @@ multi_OSD(msg) {
         SplashTextOff
     }
     Return
+}
+
+multi_MTstartupOk(index) {
+
+    handle := multi_GetMainMenuHandle(index)
+    MT_Array[%index%,%MAIN_MENU%] := handle ;works
+
+    if handle = 0
+    {
+        return handle
+    }
+
+    if !multi_IsHandleValid(handle) 
+    {
+        logger_Log("Handle is invalid: " . handle)
+        logger_Log("MT setup may be corrupted")
+        ExitApp 
+    }
+
+    logger_Log("====Start Processing for MT#" . index . "====")
+    logger_Log("Handle is valid: " . handle)
+    ; screen_PushExecButton(handle)
+    return handle
+
 }
