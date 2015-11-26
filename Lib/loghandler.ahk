@@ -4,7 +4,6 @@
 loghandler_renameLogFiles() {
 	global MT_MAX
 	global MT_PATH
-	global MLOG_EXT
 	global SCENARIONAME
 
 	Loop, %MT_MAX%
