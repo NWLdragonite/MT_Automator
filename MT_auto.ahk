@@ -1,4 +1,5 @@
 ﻿#Include <definitions>
+#Include <screen>
 #Include <multi>
 #Include <exec>
 #Include <loadsnr>
@@ -13,27 +14,6 @@ DEBUG_MODE:=0
 #SingleInstance force
 SetTitleMatchMode, RegEx
 SetControlDelay -1 ; Set Control sending delay to as fast as possible
-
-MaintenanceScreen() {
-    errorhandler_WinWait("ahk_class TFM_MT_SELECT")
-    errorhandler_BtnWait("TButton2", "ahk_class TFM_MT_SELECT", "All Start", "ahk_class TFM_ALLSTART")
-    errorhandler_WinWaitClose("ahk_class TFM_ALLSTART", 20)
-}
-
-LoginScreen() {
-    errorhandler_WinWait("ahk_class TFM_LOGIN")
-    BlockInput, On
-    ControlSend, TEdit1, nokia{Enter}{Enter}
-    BlockInput, Off
-}
-
-ExecScreen() {
-    errorhandler_WinWait("ahk_class TFM_RunMessage", 25)
-    errorhandler_WinWaitClose("ahk_class TFM_RunMessage", 25)
-    BlockInput, On
-    ControlClick, TButton7, ahk_class TFM_MSEDIT
-    BlockInput, Off
-}
 
 ;===============================
 ; Autoexec start
@@ -50,9 +30,9 @@ logger_Initialize()
 
 Run %MTSELECT%, %MTSELECTPATH%
 
-LoginScreen()
+screen_Login()
 
-MaintenanceScreen()
+screen_Maintenance()
 
 logger_Log("AllStart Finished")
 Loop, %MT_MAX%
@@ -83,7 +63,7 @@ Loop, %MT_MAX%
         Sleep, 10
     }
     ControlClick, TBitBtn4, ahk_id %handle%
-    ExecScreen()
+    screen_Exec()
     if DEBUG_MODE 
     {
         loadsnr_LoadFile(SNRFILE)
