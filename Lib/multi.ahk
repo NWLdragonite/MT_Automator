@@ -100,26 +100,3 @@ multi_OSD(msg) {
     Return
 }
 
-multi_MTstartupOk(index) {
-
-    handle := multi_GetMainMenuHandle(index)
-    MT_Array[%index%,%MAIN_MENU%] := handle ;works
-
-    if handle = 0
-    {
-        return handle
-    }
-
-    if !multi_IsHandleValid(handle) 
-    {
-        logger_Log("Handle is invalid: " . handle)
-        logger_Log("MT setup may be corrupted")
-        ExitApp 
-    }
-
-    logger_Log("====Start Processing for MT#" . index . "====")
-    logger_Log("Handle is valid: " . handle)
-    ; screen_PushExecButton(handle)
-    return handle
-
-}
