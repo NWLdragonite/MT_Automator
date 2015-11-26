@@ -2,64 +2,84 @@ global mw_fileName
 global mw_txtCtrl
 global mw_txtWin
 
+IsHead(strLine)
+{
+	IfInString, strLine, Send
+	{
+		return True
+	}
+	Else IfInString, strLine, Receive
+	{
+		return True
+	}
+	Else IfInString, strLine, End of scenario
+	{
+		return True
+	}
+	Else
+	{
+		return False
+	}	
+}
+IsFoot(strLine)
+{
+	IfInString, strLine, Reception result
+	{
+		return True
+	}
+	Else IfInString, strLine, Execution result
+	{
+		return True
+	}
+	Else
+	{
+		return False
+	}
+}
 SaveMWError(editCtrl,ctrlWindow,name) {	
 	mw_txtCtrl := editCtrl
 	mw_txtWin := ctrlWindow
 	mw_fileName := name
-	FileDelete, %mw_fileName%
-	n := 1
-	numOfLines := 0
-	str := ""
-	ControlGet, numOfLines, LineCount, , %mw_txtCtrl%, %mw_txtWin%
-	Loop, %numOfLines%
-	{		
-		FindFoot(n,"Reception result  ")	
-		n := n + 1
-	}
-}
+	
+	FileDelete, %mw_fileName%	
+	
+	cur := 1
+	MAX_LINES := 0
+	str := ""	
+	head := 0
+	foot := 0
 
-FindFoot(n,qFoot) {	
-	ControlGet, str, Line, %n%, %mw_txtCtrl%, %mw_txtWin%
-	IfInString str, %qFoot%
-	{				
-		IfInString, str, %qFoot%0
-		{			
-		}
-		Else
-		{
-			y1 := FindHead(n, "Receive")
-			y2 := FindHead(n, "Send")			
-			if (y1 > y2)			
-				y := y1
-			else 
-				y := y2
-
-			if(y != 0)
-			{
-				SaveLog(y,n)
-			}
-		}
-	}
-}
-
-FindHead(footPos,qHead) {
-	y := footPos
+	ControlGet, MAX_LINES, LineCount, , %mw_txtCtrl%, %mw_txtWin%
 	Loop
 	{
-		y := y - 1
-		if y > 0
-		{
-			xStr := ""
-			ControlGet, xStr, Line, %y%, %mw_txtCtrl%, %mw_txtWin%
-			IfInString, xStr, %qHead%
+		ControlGet, str, Line, %cur%,  %mw_txtCtrl%, %mw_txtWin%
+		
+		if (IsHead(str) = True)
+		{			
+			if(head != 0 and foot != 0 and head < foot)
 			{
-				return %y%
-			}					
+				SaveLog(head,foot)
+				head := 0
+				foot := 0
+			}
+
+			head := cur
 		}
-		else 
-			return 0
-	}
+		if (IsFoot(str) = True)
+		{
+			IfNotInString, str, result  0
+			{
+				foot := cur
+			}			
+		}
+					
+		if( cur > MAX_LINES)
+			Break
+
+		cur++
+	}	
 }
+
 
 SaveLog(strStart,strEnd) {
 	y := strStart
