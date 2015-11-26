@@ -28,8 +28,8 @@ LoginScreen() {
 }
 
 ExecScreen() {
-    errorhandler_WinWait("ahk_class TFM_RunMessage", 20)
-    errorhandler_WinWaitClose("ahk_class TFM_RunMessage", 20)
+    errorhandler_WinWait("ahk_class TFM_RunMessage", 25)
+    errorhandler_WinWaitClose("ahk_class TFM_RunMessage", 25)
     BlockInput, On
     ControlClick, TButton7, ahk_class TFM_MSEDIT
     BlockInput, Off
