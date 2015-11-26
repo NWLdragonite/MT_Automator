@@ -59,13 +59,13 @@ errorhandler_BtnClick(ControlName, ControlText, ExpectedText, windowClassName, w
     logger_log("Button Click: " . ControlName . " - " .  windowTitleName )
     retryCount := 0
     
-    BlockInput, On
-    ; ControlGetText, ButtonText, %ControlText% , %windowClassName% %windowProcessID%
     loop,
     {
-
+        BlockInput, On
         ControlFocus, %ControlText% , %windowClassName% %windowProcessID%
         ControlClick, %ControlText% , %windowClassName% %windowProcessID%
+        BlockInput, Off
+
         If (ErrorLevel = 0)
         {
             return ERR_SUCCESS
@@ -82,7 +82,6 @@ errorhandler_BtnClick(ControlName, ControlText, ExpectedText, windowClassName, w
         If (retryCount >= MAX_NO_OF_TRIES)
         {
             logger_log("Button Click: " . ControlName . " - " . windowTitleName . " Exceed retry limit."retryCount)
-            BlockInput, Off
             Return ERR_MAXRETRY
             Break
         }
