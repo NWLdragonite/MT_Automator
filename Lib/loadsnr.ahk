@@ -8,7 +8,7 @@ loadsnr_LoadFile(snr) {
 
 	retryCount := 0
 
-	Logger_Log("Load Scenario Started")
+	Logger_Log("==Load Scenario Started==")
 
 	errorhandler_BtnWait("TButton7", "ahk_class TFM_MSEDIT", "Load scenario", "ahk_class TFM_SFR")
 	
@@ -45,7 +45,7 @@ loadsnr_LoadFile(snr) {
 
 	Logger_Log("Waiting for load scenario to complete")
 	retCode := errorhandler_LoadSnrErrorCheck(LOAD_SNR_ERR_DB_VER_NOT_MATCH, 0)
-	Logger_Log("Exit Load Scenario")
+	Logger_Log("==Exit Load Scenario==")
 
 	BlockInput, Off
 }
