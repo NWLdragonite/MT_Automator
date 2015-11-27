@@ -48,21 +48,4 @@ Loop, %MT_MAX%
     screen_ErrorLogs() 
 }
 
-<<<<<<< HEAD
-
-MT_Array:=""
-SNR_Array:=""
-
-multi_CloseIfRunning()
-logger_Log("====MT_LOG_END====")
-
-;===============================
-; renaming of Log File start
-;===============================
-
-logger_Log("====START: Renaming of Log Files====")
-loghandler_renamer()
-logger_Log("====END: Renaming of Log Files====")
-=======
 screen_Cleanup()
->>>>>>> refs/remotes/origin/master
