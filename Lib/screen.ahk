@@ -126,6 +126,6 @@ screen_Cleanup() {
    ;===============================
 
    logger_Log("====START: Renaming of Log Files====")
-   loghandler_renameLogFiles()
+   loghandler_renamer()
    logger_Log("====END: Renaming of Log Files====")
 }
