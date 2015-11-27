@@ -1,3 +1,5 @@
+#Include <screen>
+
 multi_ParseParameters() {
     global 0
 
@@ -38,11 +40,7 @@ multi_GetMainMenuHandle(index) {
 }
 
 multi_IsHandleValid(handle) {
-    ; Process, Exist, %handle%
-    ; Process, wait, ahk_id %handle%, 1
-    ; NewPID = %ErrorLevel%
-    ; msgbox % NewPID
-    ; return NewPID
+
     if WinExist("ahk_id" . handle)
     {
         return True
@@ -101,3 +99,4 @@ multi_OSD(msg) {
     }
     Return
 }
+
