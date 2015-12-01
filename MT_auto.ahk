@@ -38,14 +38,16 @@ logger_log("====PREPARING FOR EXECUTION====")
 
 Loop, %MT_MAX%
 {
-     ;check if there is a saved handle
+    ;check if there is a saved handle
     handle := MT_Array[%A_Index%,%MACRO_EXEC%]
-    if handle = 0
+    if (!multi_IsHandleValid(handle) && handle = 0)
     {
         Continue
     }
+
+    MT_Array[%A_Index%,%MACRO_EXEC%] := 0
     exec_ScenarioExecute("ahk_id " . handle)
-    screen_ErrorLogs() 
+    screen_ErrorLogs()
 }
 
 screen_Cleanup()
