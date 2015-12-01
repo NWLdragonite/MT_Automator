@@ -38,9 +38,9 @@ exec_ScenarioExecution(mt_ProcessID) {
         {
 
             logger_log("Sending (Ctrl+tab) to change active page.")
-            ControlFocus, TPageControl1, %TEST% ahk_class TFM_MSEDIT
-            ControlSend,TPageControl1, {CtrlDown}{Tab}{CtrlUp}, ahk_class TFM_MSEDIT
-            ControlGet, OutputVar, Tab,, TPageControl1, ahk_class TFM_MSEDIT
+            ControlFocus, TPageControl1, %TEST% ahk_class TFM_MSEDIT %mt_ProcessID%
+            ControlSend,TPageControl1, {CtrlDown}{Tab}{CtrlUp}, ahk_class TFM_MSEDIT %mt_ProcessID%
+            ControlGet, OutputVar, Tab,, TPageControl1, ahk_class TFM_MSEDIT %mt_ProcessID%
 
             retryCount++
             sleep WAIT_DEFAULT_TIMEOUT
@@ -59,16 +59,14 @@ exec_ScenarioExecution(mt_ProcessID) {
     if (ret_code = SUCCESS)
     {
         logger_log("Auto Save logs is Enabled.")
-        Return SUCCESS
     }
     Else
     {
         logger_log("Auto Save logs is Disabled.")
+        Return FAILED
     }
 
-    ; exec_ScenarioExecute(TEST)
-
-        
+     Return SUCCESS   
 }
 
 
