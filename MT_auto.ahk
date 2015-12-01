@@ -24,7 +24,7 @@ Loop, %MT_MAX%
 {
 
     handle := screen_GetMtHandle(A_Index)
-    if handle = 0
+    if ((handle = 0) && !(multi_IsHandleValid(handle)))
     {
         Continue
     }
@@ -40,12 +40,12 @@ Loop, %MT_MAX%
 {
      ;check if there is a saved handle
     handle := MT_Array[%A_Index%,%MACRO_EXEC%]
-    if handle = 0
+    if (!(handle = 0))
     {
-        Continue
+        exec_ScenarioExecute("ahk_id " . handle)
+        screen_ErrorLogs() 
     }
-    exec_ScenarioExecute("ahk_id " . handle)
-    screen_ErrorLogs() 
+    
 }
 
-screen_Cleanup()
+; screen_Cleanup()
