@@ -59,34 +59,33 @@ errorhandler_BtnClick(ControlName, ControlText, ExpectedText, windowClassName, w
     logger_log("Button Click: " . ControlName . " - " .  windowTitleName )
     retryCount := 0
     
-    BlockInput, On
-    ControlGetText, ButtonText, %ControlText% , %windowClassName% %windowProcessID%
     loop,
     {
+        BlockInput, On
+        ControlFocus, %ControlText% , %windowClassName% %windowProcessID%
+        ControlClick, %ControlText% , %windowClassName% %windowProcessID%
+        BlockInput, Off
 
-        If (ButtonText = ExpectedText)
+        If (ErrorLevel = 0)
         {
-            BlockInput, Off
             return ERR_SUCCESS
+            Break
         }
         Else
         {
-            ControlFocus, %ControlText% , %windowClassName% %windowProcessID%
-            ControlClick, %ControlText% , %windowClassName% %windowProcessID%
-            ControlGetText, ButtonText, %ControlName% , %windowClassName% %windowProcessID%
-
+            logger_Log("ButtonClick : ErrorLevel - "ErrorLevel)
             retryCount++
+            logger_Log("ButtonClick : Retrying - "retryCount)
             sleep WAIT_DEFAULT_TIMEOUT
         }
 
-        If (retryCount = MAX_NO_OF_TRIES)
+        If (retryCount >= MAX_NO_OF_TRIES)
         {
             logger_log("Button Click: " . ControlName . " - " . windowTitleName . " Exceed retry limit."retryCount)
-            BlockInput, Off
-            ExitApp, -1
+            Return ERR_MAXRETRY
+            Break
         }
     }
-
 }
 
 errorhandler_WinWait(WaitForObjClass1, Timeout:="") {
