@@ -86,7 +86,6 @@ errorhandler_BtnClick(ControlName, ControlText, ExpectedText, windowClassName, w
             Break
         }
     }
-
 }
 
 errorhandler_WinWait(WaitForObjClass1, Timeout:="") {
