@@ -118,7 +118,7 @@ screen_Cleanup() {
    MT_Array:=""
    SNR_Array:=""
 
-   multi_CloseIfRunning()
+;  multi_CloseIfRunning()
    logger_Log("====MT_LOG_END====")
 
    ;===============================
