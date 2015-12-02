@@ -96,3 +96,29 @@ exec_ScenarioExecute(mt_ProcessID) {
         logger_log("Unsuccessfully clicked Scenario execute :"mt_Name)
     }
 }
+
+;Check for dependent scenarios
+exec_checkDependencies(snr_name){
+    if(snr_name = "cellsetup")
+    {
+        logger_log("Dependent scenario found.")
+        loop
+        {
+            ControlGetText, OutputVar, TRichEdit1, HD-BDE Maintenance Tool [LTE Mode] MT#1
+            srchstr1 = 1018 Inter eNB-CNT Message Receive Start
+            srchstr2 = Reception result  0 Succeeded
+            IfInString, OutputVar, %srchstr1%
+            {
+                IfInString, OutputVar, %srchstr2%
+                {
+                    logger_log("Executing Dependent scenario.")
+                }
+            }
+            else
+            {
+                 Continue
+            }
+            Break
+        }
+    }
+}

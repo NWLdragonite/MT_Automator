@@ -47,6 +47,7 @@ Loop, %MT_MAX%
 
     MT_Array[%A_Index%,%MACRO_EXEC%] := 0
     exec_ScenarioExecute("ahk_id " . handle)
+    exec_checkDependencies(SCENARIONAME)
     screen_ErrorLogs()
 }
 
