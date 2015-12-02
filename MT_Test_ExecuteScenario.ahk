@@ -1,9 +1,12 @@
 ﻿; Stress test for execute scenario
-
 #Include <definitions>
+#Include <screen>
 #Include <multi>
 #Include <exec>
+#Include <loadsnr>
 #Include <errorhandler>
+#Include <MWErrorHandler>
+#Include <config>
 
 global MT_MAX
 global MT_Array
