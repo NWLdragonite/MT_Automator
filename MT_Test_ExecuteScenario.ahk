@@ -61,14 +61,14 @@ Loop, %MT_MAX%
         BlockInput, Off
  
         Sleep, Delay
-        Return_Code := BackToPreviousState("ahk_id " . snl_editHandle)
+        BackToPreviousState("ahk_id " . snl_editHandle)
  
         Sleep, Delay
         BlockInput, On
         ControlGetText, VarC, Auto Save.*, ahk_class TFM_MSEDIT ahk_id %snl_editHandle%
         BlockInput, Off
-
-        if( VarB = "Auto Save off" && Return_Code = ERR_SUCCESS)
+        logger_log("Button " . VarB . "--> " . VarC)
+        if( VarB = "Auto Save off" && VarC = "Auto Save on")
         {
             successCount++  
         }
@@ -110,7 +110,8 @@ BackToPreviousState(mtProccessID){
     {
         Return ERR_SUCCESS
     }
-    Else{
+    Else
+    {
         Return 0001
     }
 }
